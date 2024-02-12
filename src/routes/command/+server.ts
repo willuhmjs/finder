@@ -10,7 +10,7 @@ export const POST: RequestHandler = async ({ request }) => {
 const host = "192.168.50.111"
 const port = 8899;
 const command = (cmd: string): Promise<string> => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         const client = new net.Socket();
         client.connect(port, host, function() {
             client.write(`~${cmd}\r\n`);
@@ -22,14 +22,13 @@ const command = (cmd: string): Promise<string> => {
         });
 
         client.on('error', function(error: Error) {
-            console.error('Error: ' + error.message);
             client.destroy();
-            reject(error);
+            resolve(error.message);
         });
 
         setTimeout(() => {
             client.destroy();
-            reject("Unknown command")
-        }, 500)
+            resolve("Unknown command")
+        }, 2000)
     });
 };
