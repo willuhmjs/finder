@@ -4,7 +4,6 @@
   let cmd: string = "";
 
   const commands = {
-    control: "M601 S1",
     setTemp: (temp: number = 200) => `M104 S${temp} T0`,
     tempOff: "M104 S0 T0",
     stop: "M112",
@@ -42,9 +41,6 @@
     }
   }
 </script>
-
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
 
 <form on:submit|preventDefault={() => execCommand(cmd)}>
   <label>
